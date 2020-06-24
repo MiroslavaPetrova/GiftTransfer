@@ -49,6 +49,14 @@ namespace GiftSystem
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<GiftSystemDbContext>())
+                {
+                    context.Database.EnsureCreated();
+                }
+            }
+
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();
             app.UseHsts();

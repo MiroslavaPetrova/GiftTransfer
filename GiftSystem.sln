@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftSystem", "GiftSystem\GiftSystem.csproj", "{15A44AA7-642D-4C4C-97F4-0792B92F5C1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiftSystem", "GiftSystem\GiftSystem.csproj", "{15A44AA7-642D-4C4C-97F4-0792B92F5C1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{47DE4DE6-ECFD-45BB-8021-2B113F1EC0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftSystem.Models", "GiftSystem.Models\GiftSystem.Models.csproj", "{D85F1A6A-644E-4B36-926E-1821C17AD915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiftSystem.Models", "GiftSystem.Models\GiftSystem.Models.csproj", "{D85F1A6A-644E-4B36-926E-1821C17AD915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftSystem.Data", "GiftSystem.Data\GiftSystem.Data.csproj", "{94670AE3-3CF8-444B-B17F-5A304BFD31CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiftSystem.Data", "GiftSystem.Data\GiftSystem.Data.csproj", "{94670AE3-3CF8-444B-B17F-5A304BFD31CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{6887EFEF-F84D-439A-A470-BBCA15ED3503}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{15A44AA7-642D-4C4C-97F4-0792B92F5C1A} = {6887EFEF-F84D-439A-A470-BBCA15ED3503}
 		{D85F1A6A-644E-4B36-926E-1821C17AD915} = {47DE4DE6-ECFD-45BB-8021-2B113F1EC0B4}
 		{94670AE3-3CF8-444B-B17F-5A304BFD31CB} = {47DE4DE6-ECFD-45BB-8021-2B113F1EC0B4}
 	EndGlobalSection

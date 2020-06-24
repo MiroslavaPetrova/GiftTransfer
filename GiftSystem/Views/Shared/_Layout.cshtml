@@ -24,19 +24,23 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="index.html">Dashboard</a></li> 
-                    <li><a href="gifts.html">Make a Gift</a></li>
-                    <li><a href="comments.html">Comments</a></li>
-                    <li><a href="users.html">Users</a></li>
+                             @*if this.IsLoggedIn*@
+
+                    @*<li><a href="index.html">dashboard</a></li>
+                    <li><a href="gifts.html">make a gift</a></li>
+        <li><a href="comments.html">comments</a></li>
+        <li><a href="users.html">users</a></li>*@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Welcome, @User</a></li>
-                    <li><a href="login.html">Logout</a></li>
+                    <li><a href="/Identity/Account/Logout">Logout</a></li>
+                    <li><a href="/Identity/Account/Register">Register</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
+                                @*if this.IsLoggedIn*@ 
     <header id="header">
         <div class="container">
             <div class="row">
