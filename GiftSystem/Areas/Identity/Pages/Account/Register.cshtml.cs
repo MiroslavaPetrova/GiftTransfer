@@ -54,21 +54,20 @@ namespace GiftSystem.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            //returnUrl = "/Identity/Account/Login";
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = "/Identity/Account/Login";
 
             if (ModelState.IsValid)
             {
                 // var isRoot = !_userManager.Users.Any();   TODO: add admin area; first seed the DB with the roles; inject roleManager
 
-                var user = new GiftSystemUser { UserName = Input.Email, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
+                var user = new GiftSystemUser { UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -81,6 +80,8 @@ namespace GiftSystem.Areas.Identity.Pages.Account
                     //{
                     //    await _userManager.AddToRoleAsync(user, "User");
                     //}
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return Redirect(returnUrl);
                 }
