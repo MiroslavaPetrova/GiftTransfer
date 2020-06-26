@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GiftSystem.Areas.Identity.Pages.Account
@@ -13,13 +14,15 @@ namespace GiftSystem.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<GiftSystemUser> _signInManager;
         private readonly UserManager<GiftSystemUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public RegisterModel(
-            UserManager<GiftSystemUser> userManager,
-            SignInManager<GiftSystemUser> signInManager)
+        public RegisterModel(UserManager<GiftSystemUser> userManager,
+                SignInManager<GiftSystemUser> signInManager,
+                 RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -39,22 +42,24 @@ namespace GiftSystem.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-
-            [Required]
-            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.",
                 MinimumLength = 3)]
+            [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+            [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Phone]
+            [Display(Name = "PhoneNumber")]
+            public string PhoneNumber { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public void OnGet(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
         }
@@ -65,23 +70,27 @@ namespace GiftSystem.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // var isRoot = !_userManager.Users.Any();   TODO: add admin area; first seed the DB with the roles; inject roleManager
+                var isRoot = !_userManager.Users.Any();   //TODO: add admin area; first seed the DB with the roles; inject roleManager
 
-                var user = new GiftSystemUser { UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
+                var user = new GiftSystemUser 
+                { 
+                    PhoneNumber = Input.PhoneNumber, 
+                    UserName = Input.Username, 
+                    Email = Input.Email 
+                };
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                    //if (isRoot)
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, "Admin");
-                    //}
-                    //else
-                    //{
-                    //    await _userManager.AddToRoleAsync(user, "User");
-                    //}
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    if (isRoot)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
 
                     return Redirect(returnUrl);
                 }

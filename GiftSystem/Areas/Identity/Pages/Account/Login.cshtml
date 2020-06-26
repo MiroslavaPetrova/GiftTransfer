@@ -6,17 +6,17 @@
 }
 
 <h1 id="regHead" class="main-color-bg text-white font-weight-bold text-center w-30 mx-auto">Login</h1>
-<form method="post" id="account" class="form border-primary-4 rounded p-3 w-30 mx-auto mt-3">
+<form method="post" asp-route-returnUrl="@Model.ReturnUrl" class="form border-primary-4 rounded p-3 w-30 mx-auto mt-3">
     <div class="form-group mx-auto">
         <div class="d-flex justify-content-center">
-            <label asp-for="Input.Email" class="text-primary h5">Email</label>
+            <label asp-for="Input.Username" class="text-primary h5">Username</label>
         </div>
         <input type="text"
                class="form-control text-primary text-center"
-               id="email"
-               placeholder="Email..."
-               asp-for="Input.Email">
-        <span asp-validation-for="Input.Email" class="text-danger"></span>
+               id="username"
+               placeholder="Username..."
+               asp-for="Input.Username">
+        <span asp-validation-for="Input.Username" class="text-danger"></span>
     </div>
     <div class="form-group mx-auto">
         <div class="d-flex justify-content-center">

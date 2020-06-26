@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace GiftSystem
 {
@@ -31,7 +32,7 @@ namespace GiftSystem
 
             services.Configure<IdentityOptions>(options =>
             {
-                // Password settings for testing pusposes
+                // Password settings-3- for testing pusposes
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -54,6 +55,22 @@ namespace GiftSystem
                 using (var context = serviceScope.ServiceProvider.GetService<GiftSystemDbContext>())
                 {
                     context.Database.EnsureCreated();
+
+                    if (!context.Roles.Any())
+                    {
+                        context.Roles.Add(new IdentityRole
+                        {
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
+
+                        context.Roles.Add(new IdentityRole
+                        {
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
+                    }
+                    context.SaveChanges();
                 }
             }
 
