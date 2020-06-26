@@ -10,5 +10,7 @@ namespace GiftSystem.Data
         public GiftSystemDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Gift> Gifts { get; set; }
     }
 }

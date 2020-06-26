@@ -4,6 +4,8 @@
     {
         public string Id { get; set; }
 
+        public int Credits { get; set; }
+
         public string Comment { get; set; }
 
         public string BeneficiaryId { get; set; }

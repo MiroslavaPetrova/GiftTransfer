@@ -15,7 +15,8 @@
     <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -41,33 +42,36 @@
             </div>
         </div>
     </nav>
-
-    @*if this.IsLoggedIn*@                          @* GET IT BY ID => POP UP FORM  <li><a href="#">Send gift</a></li>*@
+                             @* GET IT BY ID => POP UP FORM  <li><a href="#">Send gift</a></li>*@
+                             @*make dropDown select on @Model.Beneficiary.PhoneNumber*@
+    @*if this.IsLoggedIn*@
     @if (this.User.Identity.IsAuthenticated)
-     {
+    {
         <header id="header">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard</h1>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-offset-4">
                         <div class="dropdown create">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Gifts/Credits
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Credits
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <li><a href="#">Send gift</a></li>
                                 <li><a href="#">Check credits availability</a></li>
                             </ul>
+                            <div class="col-md-2 mt-4 m-md-3 d-flex justify-content-around">
+                                <button class="btn btn-default" data-toggle="modal" data-target="#giftModal"> Send gift </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-     }
-
+    }
 
     <div class="container">
         <main role="main" class="pb-3">
@@ -75,9 +79,51 @@
         </main>
     </div>
 
+    <div class="modal fade" id="giftModal" tabindex="-1" role="dialog" aria-labelledby="giftModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="giftModalLabel">Make a Gift</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="gift-form" action="/Gifts/Create" method="post">
+                        <div class="form-group">
+                            <label for="coment" class="col-form-label font-weight-bold">Comment</label>
+                            <textarea type="text" class="form-control" name="coment"></textarea>
+                            @*<input type="hidden" value="@Model.Id" name="giftid" />*@
+                        </div>
+                        <div class="form-group">
+                            <label for="Sender" class="col-form-label font-weight-bold">Sender</label>
+                            <input type="text"/>
+                            @*<input type="text" value="@Model.Sender"/>*@
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber" class="col-form-label font-weight-bold">Beneficiary</label>
+                            <input type="tel" />
+                            @*<input type="tel" value="@Model.Beneficiary.PhoneNumber" />*@
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn main-color-bg" id="send-gift-button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer id="footer">
         <p>&copy;  2015 - @DateTime.UtcNow.Year GiftTransferSystem Ltd. </p>
     </footer>
+
+    <script>
+        $('#send-gift-button').click(function () {
+            $('#gift-form').submit();
+        });
+    </script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 

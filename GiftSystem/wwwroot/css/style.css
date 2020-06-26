@@ -5,23 +5,24 @@ body {
 /* Navbar */
 .navbar {
     min-height: 45px !important;
-    margin-bottom: 0;
+    margin-bottom: 0px;
     padding-top: 6px;
     border: 0px;
 }
 
 .navbar-nav > li > a, .navbar-brand {
     padding-top: 6px !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 0px !important;
     height: 33px;
 }
 
 .navbar-default {
     background-color: #3cb1e7;
     border-color: darkcyan;
+    margin-bottom: 15px;
 }
 
-    /*this the brand GiftSystem*/
+    /* the brand GiftSystem*/
     .navbar-default .navbar-brand {
         color: #ecf0f1;
         font-size: 30px;
